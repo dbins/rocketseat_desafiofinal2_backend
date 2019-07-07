@@ -1,0 +1,106 @@
+version: "3"
+services:
+  mysql_pizzaria:
+    image: mysql:5.6
+    ports:
+      - "3306:3306"
+    expose:
+      - 3306
+    volumes:
+      - ./docker/data/db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=pizzaria
+  web_pizzaria:
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    image: nginx
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+      - 81:80  
+    expose:
+      - "81"
+    links:
+      - app_pizzaria
+    depends_on:
+      - app_pizzaria
+    networks:
+      - default
+    environment:
+      - VIRTUAL_HOST=app_pizzaria
+
+  app_pizzaria:
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    build: .
+    command: npm start
+    restart: always
+    depends_on:
+      - mysql_pizzaria
+      - redis_pizzaria
+    ports:
+      - "3333:3333"  
+    expose:
+      - "3333"
+    networks:
+      - default
+    environment:
+      - DB_HOST=mysql_pizzaria
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=123456
+      - DB_DATABASE=pizzaria
+      - DB_CONNECTION=mysql
+      - REDIS_HOST=redis_pizzaria
+      - REDIS_CONNECTION=local
+    env_file:
+      - ./api.env  
+
+ 
+  kue_pizzaria:
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    build: .
+    restart: always
+    depends_on:
+      - redis_pizzaria
+      - app_pizzaria
+      - web_pizzaria
+    networks:
+      - default
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_HOST=redis_pizzaria
+      - REDIS_CONNECTION=local
+      - REDIS_PORT=32768
+    env_file:
+      - ./api.env    
+    command: npm run kue
+
+  redis_pizzaria:
+    restart: always
+    image: "redis:alpine"
+    networks:
+      - default
+    ports:
+      - "32768:32768"
+    volumes:
+      - ./docker/data/redis:/data
+    expose:
+      - 32768
+    entrypoint: redis-server --port 32768 --appendonly yes
+
+volumes:
+  db-data:

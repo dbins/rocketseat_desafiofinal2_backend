@@ -1,5 +1,6 @@
 "use strict";
 const Tamanho = use("App/Models/Tamanho");
+const moment = use("moment");
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -18,7 +19,21 @@ class TamanhoController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index({ params, request, response, view }) {
+  async index({ params, request, response, view, auth }) {
+    if (auth.user.type == "USUARIO") {
+      const now = moment().format("YYYY-MM-DD HH:mm:ss");
+      const log_produto = {
+        user_id: auth.user.id,
+        produto_id: params.produtos_id,
+        produto_tipo_id: params.tipos_id,
+        produto_tamanho_id: 0,
+        created_at: now,
+        updated_at: now
+      };
+      const gravar_log = await use("Database")
+        .table("log_produtos")
+        .insert(log_produto);
+    }
     const resultado = await Tamanho.query()
       .where("produto_tipo_id", params.tipos_id)
       .with("file")
@@ -53,9 +68,10 @@ class TamanhoController {
 
     const resultado = await Tamanho.create({
       ...data,
-      produto_tipo_id: params.tipos_id
+      produto_tipo_id: parseInt(params.tipos_id)
     });
-    return resultado;
+    resultado.valor = parseFloat(resultado.valor);
+    return response.status(200).send(resultado);
   }
 
   /**
@@ -68,8 +84,14 @@ class TamanhoController {
    * @param {View} ctx.view
    */
   async show({ params, request, response, view }) {
-    const resultado = await Tamanho.findOrFail(params.id);
-    return resultado;
+    const resultado = await Tamanho.find(params.id);
+    if (resultado) {
+      return response.status(200).send(resultado);
+    } else {
+      return response
+        .status(404)
+        .send({ message: "O ID do tamanho não foi localizado" });
+    }
   }
 
   /**
@@ -95,7 +117,8 @@ class TamanhoController {
     const data = request.only(["titulo", "valor", "file_id", "id"]);
     const resultado = await Tamanho.find(params.id);
     if (resultado) {
-      data.produto_tipo_id = params.tipos_id;
+      data.produto_tipo_id = parseInt(params.tipos_id);
+      data.valor = parseFloat(data.valor);
       resultado.merge(data);
       await resultado.save();
       return response.status(200).send(resultado);

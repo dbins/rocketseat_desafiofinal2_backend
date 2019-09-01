@@ -1,0 +1,3137 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "API PIZZARIA",
+        "version": "",
+        "description": "API do aplicativo Pizzaria Don Juan!"
+    },
+    "host": "127.0.0.1:3000",
+    "basePath": "/",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/users": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {},
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Retorno da operação"
+                                },
+                                "user": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "description": "ID do usuário"
+                                        },
+                                        "username": {
+                                            "type": "string",
+                                            "description": "Nome do usuário"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "description": "E-mail do usuário, deve ser único"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "description": "Tipo de usuário (ADMIN ou USUARIO)"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "description": "Senha criptografada"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "description": "Data de criação"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "description": "Data de atualização"
+                                        }
+                                    },
+                                    "description": "Objeto com os dados do usuário"
+                                },
+                                "token": {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "description": "tipo de token"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "description": "Token criptografado"
+                                        },
+                                        "refreshToken": {
+                                            "type": "string",
+                                            "description": "Tempo de vida do token"
+                                        }
+                                    },
+                                    "description": "Objeto com os dados do token"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Criar Usuário",
+                "description": "",
+                "tags": [
+                    "Usuário"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "username": {
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            },
+                            "example": {
+                                "username": "Bins2",
+                                "email": "bins22@ig.com.br",
+                                "password": "1234576"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "/sessions": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {},
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Retorno da operação"
+                                },
+                                "user": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "description": "ID do usuário"
+                                        },
+                                        "username": {
+                                            "type": "string",
+                                            "description": "Nome do usuário"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "description": "E-mail do usuário, deve ser único"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "description": "Tipo de usuário (ADMIN ou USUARIO)"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "description": "Senha criptografada"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "description": "Data de criação"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "description": "Data de atualização"
+                                        }
+                                    },
+                                    "description": "Objeto com os dados do usuário"
+                                },
+                                "token": {
+                                    "type": "string",
+                                    "description": "Token criptografado"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "message": "A senha ou o email informados estão incorretos"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "message": "Erro ao tentar logar o usuário. Verifique o login e a senha informados"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "message": "O e-mail informado não foi localizado"
+                            }
+                        }
+                    }
+                },
+                "summary": "Login do usuário",
+                "description": "",
+                "tags": [
+                    "Usuário"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                },
+                                "origin": {
+                                    "type": "string"
+                                },
+                                "sistema": {
+                                    "type": "string"
+                                },
+                                "versao": {
+                                    "type": "string"
+                                },
+                                "api": {
+                                    "type": "string"
+                                },
+                                "marca": {
+                                    "type": "string"
+                                }
+                            },
+                            "example": {
+                                "email": "bins22@ig.com.br",
+                                "password": "1234576",
+                                "origin": "MOBILE",
+                                "sistema": "ANDROID",
+                                "versao": "4",
+                                "api": "16",
+                                "marca": "SAMSUNG"
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/sessions_social": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {},
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Retorno da operação"
+                                },
+                                "user": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "description": "ID do usuário"
+                                        },
+                                        "username": {
+                                            "type": "string",
+                                            "description": "Nome do usuário"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "description": "E-mail do usuário, deve ser único"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "description": "Tipo de usuário (ADMIN ou USUARIO)"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "description": "Senha criptografada"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "description": "Data de criação"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "description": "Data de atualização"
+                                        }
+                                    },
+                                    "description": "Objeto com os dados do usuário"
+                                },
+                                "token": {
+                                    "type": "string",
+                                    "description": "Token criptografado"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "message": "A senha ou o email informados estão incorretos"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "message": "Erro ao tentar logar o usuário. Verifique o login e a senha informados"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "message": "O e-mail informado não foi localizado"
+                            }
+                        }
+                    }
+                },
+                "summary": "Login do usuário por rede social. Se o usuário não existir, ele será criado",
+                "description": "",
+                "tags": [
+                    "Usuário"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "username": {
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                },
+                                "origin": {
+                                    "type": "string"
+                                },
+                                "sistema": {
+                                    "type": "string"
+                                },
+                                "versao": {
+                                    "type": "string"
+                                },
+                                "api": {
+                                    "type": "string"
+                                },
+                                "marca": {
+                                    "type": "string"
+                                },
+                                "social_origem": {
+                                    "type": "string"
+                                },
+                                "social_id": {
+                                    "type": "string"
+                                }
+                            },
+                            "example": {
+                                "username": "Bins",
+                                "email": "bins22@ig.com.br",
+                                "password": "1234576",
+                                "origin": "MOBILE",
+                                "sistema": "ANDROID",
+                                "versao": "4",
+                                "api": "16",
+                                "marca": "SAMSUNG",
+                                "social_origem": "FACEBOOK",
+                                "social_id": "12345678910"
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/files/{id}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "file": {
+                                    "file": "1558396610564.jpeg",
+                                    "name": "0_11b748_d4d498a0_XXL.jpg",
+                                    "type": "image",
+                                    "subtype": "jpeg",
+                                    "created_at": "2019-05-20 20:56:50",
+                                    "updated_at": "2019-05-20 20:56:50",
+                                    "id": 5
+                                }
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "description": "ID do arquivo"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "description": "Nome do arquivo"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "description": "Tipo do arquivo"
+                                        },
+                                        "subtype": {
+                                            "type": "string",
+                                            "description": "Extensão do arquivo"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "description": "Data de criação"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "description": "Data de atualização"
+                                        },
+                                        "url": {
+                                            "type": "string",
+                                            "description": "Link para acessar a imagem"
+                                        }
+                                    },
+                                    "description": "Objeto com os dados da imagem"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Imagem do produto",
+                "description": "",
+                "tags": [
+                    "Files"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do arquivo",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "file": {
+                                    "file": "1558396610564.jpeg",
+                                    "name": "0_11b748_d4d498a0_XXL.jpg",
+                                    "type": "image",
+                                    "subtype": "jpeg",
+                                    "created_at": "2019-05-20 20:56:50",
+                                    "updated_at": "2019-05-20 20:56:50",
+                                    "id": 5
+                                }
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "description": "ID do arquivo"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "description": "Nome do arquivo"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "description": "Tipo do arquivo"
+                                        },
+                                        "subtype": {
+                                            "type": "string",
+                                            "description": "Extensão do arquivo"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "description": "Data de criação"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "description": "Data de atualização"
+                                        },
+                                        "url": {
+                                            "type": "string",
+                                            "description": "Link para acessar a imagem"
+                                        }
+                                    },
+                                    "description": "Objeto com os dados da imagem"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Atualizar Imagem do produto",
+                "description": "O envio do arquivo deve ser feito atráves de form-data (multipart/form-data). O nome da variável deve ser file",
+                "tags": [
+                    "Files"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do arquivo",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "message": "Arquivo excluído com sucesso "
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Message": {
+                                    "type": "string",
+                                    "description": "Retorno da operação"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Apagar Imagem do Produto",
+                "description": "",
+                "tags": [
+                    "Files"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do arquivo",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/files/": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "file": {
+                                    "file": "1557088194989.jpeg",
+                                    "name": "0_11b748_d4d498a0_XXL.jpg",
+                                    "type": "image",
+                                    "subtype": "jpeg",
+                                    "created_at": "2019-05-05 17:29:54",
+                                    "updated_at": "2019-05-05 17:29:54",
+                                    "id": 1
+                                }
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "description": "ID do arquivo"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "description": "Nome do arquivo"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "description": "Tipo do arquivo"
+                                        },
+                                        "subtype": {
+                                            "type": "string",
+                                            "description": "Extensão do arquivo"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "description": "Data de criação"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "description": "Data de atualização"
+                                        },
+                                        "url": {
+                                            "type": "string",
+                                            "description": "Link para acessar a imagem"
+                                        }
+                                    },
+                                    "description": "Objeto com os dados da imagem"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Enviar Imagem do Produto",
+                "description": "O envio do arquivo deve ser feito atráves de form-data (multipart/form-data). O nome da variável deve ser file",
+                "tags": [
+                    "Files"
+                ],
+                "parameters": [],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/produtos": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 1,
+                                    "nome": "",
+                                    "descricao": "",
+                                    "tempo_estimado": 0,
+                                    "file_id": 5,
+                                    "created_at": "2019-06-30 09:25:01",
+                                    "updated_at": "2019-06-30 09:25:01",
+                                    "file": {
+                                        "id": 5,
+                                        "file": "1561896613432.png",
+                                        "name": "03a11555328101.59803b89a0624.png",
+                                        "type": "image",
+                                        "subtype": "png",
+                                        "created_at": "2019-06-30 09:10:13",
+                                        "updated_at": "2019-06-30 09:10:13",
+                                        "url": "http://192.168.0.100:3333/files/5"
+                                    }
+                                },
+                                {
+                                    "id": 2,
+                                    "nome": "teste3",
+                                    "descricao": "Cervejas artesanais, vinhos e destilados.",
+                                    "tempo_estimado": 5,
+                                    "file_id": 5,
+                                    "created_at": "2019-06-30 09:27:17",
+                                    "updated_at": "2019-06-30 09:27:17",
+                                    "file": {
+                                        "id": 5,
+                                        "file": "1561896613432.png",
+                                        "name": "03a11555328101.59803b89a0624.png",
+                                        "type": "image",
+                                        "subtype": "png",
+                                        "created_at": "2019-06-30 09:10:13",
+                                        "updated_at": "2019-06-30 09:10:13",
+                                        "url": "http://192.168.0.100:3333/files/5"
+                                    }
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "type": "array",
+                            "items": {}
+                        }
+                    }
+                },
+                "summary": "Listar Categorias",
+                "description": "",
+                "tags": [
+                    "Produtos"
+                ],
+                "parameters": [],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "nome": "teste3",
+                                "descricao": "Cervejas artesanais, vinhos e destilados.",
+                                "tempo_estimado": 5,
+                                "file_id": 5,
+                                "created_at": "2019-06-30 09:27:17",
+                                "updated_at": "2019-06-30 09:27:17",
+                                "id": 2
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "number",
+                                    "description": "ID do registro"
+                                },
+                                "nome": {
+                                    "type": "string",
+                                    "description": "Nome da categoria"
+                                },
+                                "descricao": {
+                                    "type": "string",
+                                    "description": "Descrição da categoria"
+                                },
+                                "tempo_estimado": {
+                                    "type": "string",
+                                    "description": "Tempo estimado"
+                                },
+                                "file_id": {
+                                    "type": "number",
+                                    "description": "ID do arquivo"
+                                },
+                                "created_at": {
+                                    "type": "string",
+                                    "description": "Data de criação"
+                                },
+                                "updated_at": {
+                                    "type": "string",
+                                    "description": "Data de atualização"
+                                },
+                                "file": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "description": "ID do arquivo"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "description": "Nome do arquivo"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "description": "Tipo do arquivo"
+                                        },
+                                        "subtype": {
+                                            "type": "string",
+                                            "description": "Extensão do arquivo"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "description": "Data de criação"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "description": "Data de atualização"
+                                        },
+                                        "url": {
+                                            "type": "string",
+                                            "description": "Link para acessar a imagem"
+                                        }
+                                    },
+                                    "description": "Imagem do tipo de produto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Cadastrar Categoria",
+                "description": "",
+                "tags": [
+                    "Produtos"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "nome": {
+                                    "type": "string"
+                                },
+                                "descricao": {
+                                    "type": "string"
+                                },
+                                "tempo_estimado": {
+                                    "type": "number"
+                                },
+                                "file_id": {
+                                    "type": "number"
+                                }
+                            },
+                            "example": {
+                                "nome": "teste3",
+                                "descricao": "Cervejas artesanais, vinhos e destilados.",
+                                "tempo_estimado": 5,
+                                "file_id": 5
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/produtos/{id_produto}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "nome": "teste3",
+                                "descricao": "Cervejas artesanais, vinhos e destilados.",
+                                "tempo_estimado": 5,
+                                "file_id": 5,
+                                "created_at": "2019-06-30 09:27:17",
+                                "updated_at": "2019-06-30 09:27:17",
+                                "id": 2
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "number",
+                                    "description": "ID do registro"
+                                },
+                                "nome": {
+                                    "type": "string",
+                                    "description": "Nome da categoria"
+                                },
+                                "descricao": {
+                                    "type": "string",
+                                    "description": "Descrição da categoria"
+                                },
+                                "tempo_estimado": {
+                                    "type": "string",
+                                    "description": "Tempo estimado"
+                                },
+                                "file_id": {
+                                    "type": "number",
+                                    "description": "ID do arquivo"
+                                },
+                                "created_at": {
+                                    "type": "string",
+                                    "description": "Data de criação"
+                                },
+                                "updated_at": {
+                                    "type": "string",
+                                    "description": "Data de atualização"
+                                },
+                                "file": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "description": "ID do arquivo"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "description": "Nome do arquivo"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "description": "Tipo do arquivo"
+                                        },
+                                        "subtype": {
+                                            "type": "string",
+                                            "description": "Extensão do arquivo"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "description": "Data de criação"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "description": "Data de atualização"
+                                        },
+                                        "url": {
+                                            "type": "string",
+                                            "description": "Link para acessar a imagem"
+                                        }
+                                    },
+                                    "description": "Imagem do tipo de produto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Ver Categoria",
+                "description": "",
+                "tags": [
+                    "Produtos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_produto",
+                        "in": "path",
+                        "description": "ID do produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "nome": "teste3",
+                                "descricao": "Cervejas artesanais, vinhos e destilados.",
+                                "tempo_estimado": 5,
+                                "file_id": 5,
+                                "created_at": "2019-06-30 09:27:17",
+                                "updated_at": "2019-06-30 09:27:17",
+                                "id": 2
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "number",
+                                    "description": "ID do registro"
+                                },
+                                "nome": {
+                                    "type": "string",
+                                    "description": "Nome da categoria"
+                                },
+                                "descricao": {
+                                    "type": "string",
+                                    "description": "Descrição da categoria"
+                                },
+                                "tempo_estimado": {
+                                    "type": "string",
+                                    "description": "Tempo estimado"
+                                },
+                                "file_id": {
+                                    "type": "number",
+                                    "description": "ID do arquivo"
+                                },
+                                "created_at": {
+                                    "type": "string",
+                                    "description": "Data de criação"
+                                },
+                                "updated_at": {
+                                    "type": "string",
+                                    "description": "Data de atualização"
+                                },
+                                "file": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "description": "ID do arquivo"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "description": "Nome do arquivo"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "description": "Tipo do arquivo"
+                                        },
+                                        "subtype": {
+                                            "type": "string",
+                                            "description": "Extensão do arquivo"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "description": "Data de criação"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "description": "Data de atualização"
+                                        },
+                                        "url": {
+                                            "type": "string",
+                                            "description": "Link para acessar a imagem"
+                                        }
+                                    },
+                                    "description": "Imagem do tipo de produto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Atualizar Categorias",
+                "description": "",
+                "tags": [
+                    "Produtos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_produto",
+                        "in": "path",
+                        "description": "ID do produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "nome": {
+                                    "type": "string"
+                                },
+                                "descricao": {
+                                    "type": "string"
+                                },
+                                "tempo_estimado": {
+                                    "type": "number"
+                                },
+                                "file_id": {
+                                    "type": "number"
+                                }
+                            },
+                            "example": {
+                                "nome": "teste3",
+                                "descricao": "Cervejas artesanais, vinhos e destilados.",
+                                "tempo_estimado": 5,
+                                "file_id": 5
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "message": "Produto excluído com sucesso"
+                            }
+                        }
+                    }
+                },
+                "summary": "Excluir Categorias",
+                "description": "",
+                "tags": [
+                    "Produtos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_produto",
+                        "in": "path",
+                        "description": "ID do produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/produtos/{id_produto}/tipos": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 2,
+                                    "titulo": "",
+                                    "produto_id": 5,
+                                    "file_id": 5,
+                                    "created_at": "2019-06-30 09:36:16",
+                                    "updated_at": "2019-06-30 09:36:16",
+                                    "file": {
+                                        "id": 5,
+                                        "file": "1561896613432.png",
+                                        "name": "03a11555328101.59803b89a0624.png",
+                                        "type": "image",
+                                        "subtype": "png",
+                                        "created_at": "2019-06-30 09:10:13",
+                                        "updated_at": "2019-06-30 09:10:13",
+                                        "url": "http://192.168.0.100:3333/files/5"
+                                    }
+                                },
+                                {
+                                    "id": 3,
+                                    "titulo": "Frango com Catupiri",
+                                    "produto_id": 5,
+                                    "file_id": 5,
+                                    "created_at": "2019-06-30 09:36:57",
+                                    "updated_at": "2019-06-30 09:36:57",
+                                    "file": {
+                                        "id": 5,
+                                        "file": "1561896613432.png",
+                                        "name": "03a11555328101.59803b89a0624.png",
+                                        "type": "image",
+                                        "subtype": "png",
+                                        "created_at": "2019-06-30 09:10:13",
+                                        "updated_at": "2019-06-30 09:10:13",
+                                        "url": "http://192.168.0.100:3333/files/5"
+                                    }
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "type": "array",
+                            "items": {}
+                        }
+                    }
+                },
+                "summary": "Tipos de produtos por categoria",
+                "description": "",
+                "tags": [
+                    "Tipos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_produto",
+                        "in": "path",
+                        "description": "ID do produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "titulo": "Frango com Catupiri",
+                                "file_id": 5,
+                                "produto_id": "5",
+                                "created_at": "2019-06-30 09:36:57",
+                                "updated_at": "2019-06-30 09:36:57",
+                                "id": 3
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "number",
+                                    "description": "ID do registro"
+                                },
+                                "titulo": {
+                                    "type": "string",
+                                    "description": "Nome do tipo de produto"
+                                },
+                                "produto_id": {
+                                    "type": "number",
+                                    "description": "ID da categoria do produto"
+                                },
+                                "file_id": {
+                                    "type": "number",
+                                    "description": "ID da imagem"
+                                },
+                                "created_at": {
+                                    "type": "string",
+                                    "description": "Data de criação"
+                                },
+                                "updated_at": {
+                                    "type": "string",
+                                    "description": "Data de atualização"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Cadastrar tipo de produto",
+                "description": "",
+                "tags": [
+                    "Tipos"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "titulo": {
+                                    "type": "string"
+                                },
+                                "file_id": {
+                                    "type": "number"
+                                }
+                            },
+                            "example": {
+                                "titulo": "Frango com Catupiri",
+                                "file_id": 5
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/produtos/{id_produto}/tipos/{id_tipo}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "titulo": "Frango com Catupiri",
+                                "file_id": 5,
+                                "produto_id": "5",
+                                "created_at": "2019-06-30 09:36:57",
+                                "updated_at": "2019-06-30 09:36:57",
+                                "id": 3
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "number",
+                                    "description": "ID do registro"
+                                },
+                                "titulo": {
+                                    "type": "string",
+                                    "description": "Nome do tipo de produto"
+                                },
+                                "produto_id": {
+                                    "type": "number",
+                                    "description": "ID da categoria do produto"
+                                },
+                                "file_id": {
+                                    "type": "number",
+                                    "description": "ID da imagem"
+                                },
+                                "created_at": {
+                                    "type": "string",
+                                    "description": "Data de criação"
+                                },
+                                "updated_at": {
+                                    "type": "string",
+                                    "description": "Data de atualização"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Ver tipo de produto",
+                "description": "",
+                "tags": [
+                    "Tipos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_produto",
+                        "in": "path",
+                        "description": "ID do produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    },
+                    {
+                        "name": "id_tipo",
+                        "in": "path",
+                        "description": "ID do tipo de produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "titulo": "Frango com Catupiri",
+                                "file_id": 5,
+                                "produto_id": "5",
+                                "created_at": "2019-06-30 09:36:57",
+                                "updated_at": "2019-06-30 09:36:57",
+                                "id": 3
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "number",
+                                    "description": "ID do registro"
+                                },
+                                "titulo": {
+                                    "type": "string",
+                                    "description": "Nome do tipo de produto"
+                                },
+                                "produto_id": {
+                                    "type": "number",
+                                    "description": "ID da categoria do produto"
+                                },
+                                "file_id": {
+                                    "type": "number",
+                                    "description": "ID da imagem"
+                                },
+                                "created_at": {
+                                    "type": "string",
+                                    "description": "Data de criação"
+                                },
+                                "updated_at": {
+                                    "type": "string",
+                                    "description": "Data de atualização"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Atualizar tipo de produto",
+                "description": "",
+                "tags": [
+                    "Tipos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_produto",
+                        "in": "path",
+                        "description": "ID do produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    },
+                    {
+                        "name": "id_tipo",
+                        "in": "path",
+                        "description": "ID do tipo de produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "titulo": {
+                                    "type": "string"
+                                },
+                                "file_id": {
+                                    "type": "number"
+                                }
+                            },
+                            "example": {
+                                "titulo": "Frango com Catupiri",
+                                "file_id": 5
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "message": "Tipo de produto excluído com sucesso"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "number",
+                                    "description": "ID do registro"
+                                },
+                                "titulo": {
+                                    "type": "string",
+                                    "description": "Nome do tipo de produto"
+                                },
+                                "produto_id": {
+                                    "type": "number",
+                                    "description": "ID da categoria do produto"
+                                },
+                                "file_id": {
+                                    "type": "number",
+                                    "description": "ID da imagem"
+                                },
+                                "created_at": {
+                                    "type": "string",
+                                    "description": "Data de criação"
+                                },
+                                "updated_at": {
+                                    "type": "string",
+                                    "description": "Data de atualização"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Apagar tipo de produto",
+                "description": "",
+                "tags": [
+                    "Tipos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_produto",
+                        "in": "path",
+                        "description": "ID do produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    },
+                    {
+                        "name": "id_tipo",
+                        "in": "path",
+                        "description": "ID do tipo de produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/produtos/{id_produto}/tipos/{id_tamanho}/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 2,
+                                    "titulo": "",
+                                    "valor": 0,
+                                    "produto_tipo_id": 4,
+                                    "file_id": 1,
+                                    "created_at": "2019-06-30 09:37:57",
+                                    "updated_at": "2019-06-30 09:37:57",
+                                    "file": {
+                                        "id": 1,
+                                        "file": "1561896543899.png",
+                                        "name": "03a11555328101.59803b89a0624.png",
+                                        "type": "image",
+                                        "subtype": "png",
+                                        "created_at": "2019-06-30 09:09:03",
+                                        "updated_at": "2019-06-30 09:09:03",
+                                        "url": "http://192.168.0.100:3333/files/1"
+                                    },
+                                    "tipos": null
+                                },
+                                {
+                                    "id": 3,
+                                    "titulo": "Pequena",
+                                    "valor": 29,
+                                    "produto_tipo_id": 4,
+                                    "file_id": 1,
+                                    "created_at": "2019-06-30 09:40:41",
+                                    "updated_at": "2019-06-30 09:40:41",
+                                    "file": {
+                                        "id": 1,
+                                        "file": "1561896543899.png",
+                                        "name": "03a11555328101.59803b89a0624.png",
+                                        "type": "image",
+                                        "subtype": "png",
+                                        "created_at": "2019-06-30 09:09:03",
+                                        "updated_at": "2019-06-30 09:09:03",
+                                        "url": "http://192.168.0.100:3333/files/1"
+                                    },
+                                    "tipos": null
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "type": "array",
+                            "items": {}
+                        }
+                    }
+                },
+                "summary": "Tamanhos de produtos por tipo",
+                "description": "",
+                "tags": [
+                    "Tamanhos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_produto",
+                        "in": "path",
+                        "description": "ID do produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    },
+                    {
+                        "name": "id_tamanho",
+                        "in": "path",
+                        "description": "ID do tamanho do produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "titulo": "Pequena",
+                                "valor": "29",
+                                "file_id": 1,
+                                "produto_tipo_id": "4",
+                                "created_at": "2019-06-30 09:40:41",
+                                "updated_at": "2019-06-30 09:40:41",
+                                "id": 3
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "number",
+                                    "description": "ID do registro"
+                                },
+                                "titulo": {
+                                    "type": "string",
+                                    "description": "Nome do tamanho do tipo de produto"
+                                },
+                                "valor": {
+                                    "type": "number",
+                                    "description": "Valor deste tipo de tamanho de produto"
+                                },
+                                "file_id": {
+                                    "type": "number",
+                                    "description": "ID da imagem"
+                                },
+                                "produto_tipo_id": {
+                                    "type": "number",
+                                    "description": "ID do tipo de produto"
+                                },
+                                "created_at": {
+                                    "type": "string",
+                                    "description": "Data de criação"
+                                },
+                                "updated_at": {
+                                    "type": "string",
+                                    "description": "Data de atualização"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Cadastrar tamanho de produto",
+                "description": "",
+                "tags": [
+                    "Tamanhos"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "titulo": {
+                                    "type": "string"
+                                },
+                                "valor": {
+                                    "type": "string"
+                                },
+                                "file_id": {
+                                    "type": "number"
+                                }
+                            },
+                            "example": {
+                                "titulo": "Pequena",
+                                "valor": "29",
+                                "file_id": 1
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/produtos/{id_produto}/tipos/{id_tipo}/tamanhos/{id_tamanho}/{id_registro}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "titulo": "Pequena",
+                                "valor": "29",
+                                "file_id": 1,
+                                "produto_tipo_id": "4",
+                                "created_at": "2019-06-30 09:40:41",
+                                "updated_at": "2019-06-30 09:40:41",
+                                "id": 3
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "number",
+                                    "description": "ID do registro"
+                                },
+                                "titulo": {
+                                    "type": "string",
+                                    "description": "Nome do tamanho do tipo de produto"
+                                },
+                                "valor": {
+                                    "type": "number",
+                                    "description": "Valor deste tipo de tamanho de produto"
+                                },
+                                "file_id": {
+                                    "type": "number",
+                                    "description": "ID da imagem"
+                                },
+                                "produto_tipo_id": {
+                                    "type": "number",
+                                    "description": "ID do tipo de produto"
+                                },
+                                "created_at": {
+                                    "type": "string",
+                                    "description": "Data de criação"
+                                },
+                                "updated_at": {
+                                    "type": "string",
+                                    "description": "Data de atualização"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Ver tamanho de produto",
+                "description": "",
+                "tags": [
+                    "Tamanhos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_produto",
+                        "in": "path",
+                        "description": "ID do produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    },
+                    {
+                        "name": "id_tipo",
+                        "in": "path",
+                        "description": "ID do tipo do produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    },
+                    {
+                        "name": "id_tamanho",
+                        "in": "path",
+                        "description": "ID do tamanho do produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    },
+                    {
+                        "name": "id_registro",
+                        "in": "path",
+                        "description": "ID do registro",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "titulo": "Pequena",
+                                "valor": "29",
+                                "file_id": 1,
+                                "produto_tipo_id": "4",
+                                "created_at": "2019-06-30 09:40:41",
+                                "updated_at": "2019-06-30 09:40:41",
+                                "id": 3
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "number",
+                                    "description": "ID do registro"
+                                },
+                                "titulo": {
+                                    "type": "string",
+                                    "description": "Nome do tamanho do tipo de produto"
+                                },
+                                "valor": {
+                                    "type": "number",
+                                    "description": "Valor deste tipo de tamanho de produto"
+                                },
+                                "file_id": {
+                                    "type": "number",
+                                    "description": "ID da imagem"
+                                },
+                                "produto_tipo_id": {
+                                    "type": "number",
+                                    "description": "ID do tipo de produto"
+                                },
+                                "created_at": {
+                                    "type": "string",
+                                    "description": "Data de criação"
+                                },
+                                "updated_at": {
+                                    "type": "string",
+                                    "description": "Data de atualização"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Atualizar tamanho de produto",
+                "description": "",
+                "tags": [
+                    "Tamanhos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_produto",
+                        "in": "path",
+                        "description": "ID do produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    },
+                    {
+                        "name": "id_tipo",
+                        "in": "path",
+                        "description": "ID do tipo do produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    },
+                    {
+                        "name": "id_tamanho",
+                        "in": "path",
+                        "description": "ID do tamanho do produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    },
+                    {
+                        "name": "id_registro",
+                        "in": "path",
+                        "description": "ID do registro",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "titulo": {
+                                    "type": "string"
+                                },
+                                "valor": {
+                                    "type": "string"
+                                },
+                                "file_id": {
+                                    "type": "number"
+                                }
+                            },
+                            "example": {
+                                "titulo": "Pequena",
+                                "valor": "29",
+                                "file_id": 1
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "message": "Tamanho de Produto excluído com sucesso"
+                            }
+                        }
+                    }
+                },
+                "summary": "Apagar tamanho de produto",
+                "description": "",
+                "tags": [
+                    "Tamanhos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_produto",
+                        "in": "path",
+                        "description": "ID do produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    },
+                    {
+                        "name": "id_tipo",
+                        "in": "path",
+                        "description": "ID do tipo do produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    },
+                    {
+                        "name": "id_tamanho",
+                        "in": "path",
+                        "description": "ID do tamanho do produto",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    },
+                    {
+                        "name": "id_registro",
+                        "in": "path",
+                        "description": "ID do registro",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/pedidos": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 18,
+                                    "cep": "01532001",
+                                    "rua": "R CASTRO ALVES",
+                                    "numero": "11",
+                                    "bairro": "ACLIMACAO",
+                                    "cidade": "",
+                                    "estado": "",
+                                    "valor": 29,
+                                    "observacao": "bins",
+                                    "user_id": 7,
+                                    "created_at": "2019-07-01 20:49:26",
+                                    "updated_at": "2019-07-01 20:49:26",
+                                    "user": {
+                                        "id": 7,
+                                        "username": "teste",
+                                        "email": "teste@teste.com.br",
+                                        "password": "$2a$10$tN6OUF2XaqmNhodHpbplsOxjIUprWmy88TUMesZvZW.2YZUVNmFy2",
+                                        "type": "USUARIO",
+                                        "created_at": "2019-06-30 10:47:21",
+                                        "updated_at": "2019-06-30 10:47:21"
+                                    },
+                                    "produtos": [
+                                        {
+                                            "id": 16,
+                                            "produto_tamanho_id": 3,
+                                            "titulo": "Frango com Catupiri",
+                                            "tamanho": "Pequena",
+                                            "valor": 29,
+                                            "imagem": "http://0.0.0.0:3333/files/1",
+                                            "pedido_id": 18,
+                                            "created_at": "2019-07-01 20:49:27",
+                                            "updated_at": "2019-07-01 20:49:27",
+                                            "produto_id": 5,
+                                            "produto_tipo_id": 4
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": 19,
+                                    "cep": "01532001",
+                                    "rua": "R CASTRO ALVES",
+                                    "numero": "11",
+                                    "bairro": "ACLIMACAO",
+                                    "cidade": "",
+                                    "estado": "",
+                                    "valor": 29,
+                                    "observacao": "bins",
+                                    "user_id": 7,
+                                    "created_at": "2019-07-01 20:49:26",
+                                    "updated_at": "2019-07-01 20:49:26",
+                                    "user": {
+                                        "id": 7,
+                                        "username": "teste",
+                                        "email": "teste@teste.com.br",
+                                        "password": "$2a$10$tN6OUF2XaqmNhodHpbplsOxjIUprWmy88TUMesZvZW.2YZUVNmFy2",
+                                        "type": "USUARIO",
+                                        "created_at": "2019-06-30 10:47:21",
+                                        "updated_at": "2019-06-30 10:47:21"
+                                    },
+                                    "produtos": [
+                                        {
+                                            "id": 17,
+                                            "produto_tamanho_id": 3,
+                                            "titulo": "Frango com Catupiri",
+                                            "tamanho": "Pequena",
+                                            "valor": 29,
+                                            "imagem": "http://0.0.0.0:3333/files/1",
+                                            "pedido_id": 18,
+                                            "created_at": "2019-07-01 20:49:27",
+                                            "updated_at": "2019-07-01 20:49:27",
+                                            "produto_id": 5,
+                                            "produto_tipo_id": 4
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "type": "array",
+                            "items": {}
+                        }
+                    }
+                },
+                "summary": "Listar Pedidos",
+                "description": "",
+                "tags": [
+                    "Pedidos"
+                ],
+                "parameters": [],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {},
+                        "schema": {
+                            "type": "array",
+                            "items": {}
+                        }
+                    }
+                },
+                "summary": "Gravar Pedido",
+                "description": "",
+                "tags": [
+                    "Pedidos"
+                ],
+                "parameters": []
+            }
+        },
+        "/pedidos/{id}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "id": 18,
+                                "cep": "01532001",
+                                "rua": "R CASTRO ALVES",
+                                "numero": "11",
+                                "bairro": "ACLIMACAO",
+                                "cidade": "",
+                                "estado": "",
+                                "valor": 29,
+                                "observacao": "bins",
+                                "user_id": 7,
+                                "status": "PENDENTE",
+                                "created_at": "2019-07-01 20:49:26",
+                                "updated_at": "2019-07-01 20:49:26",
+                                "user": {
+                                    "id": 7,
+                                    "username": "teste",
+                                    "email": "teste@teste.com.br",
+                                    "password": "$2a$10$tN6OUF2XaqmNhodHpbplsOxjIUprWmy88TUMesZvZW.2YZUVNmFy2",
+                                    "type": "USUARIO",
+                                    "created_at": "2019-06-30 10:47:21",
+                                    "updated_at": "2019-06-30 10:47:21"
+                                },
+                                "produtos": [
+                                    {
+                                        "id": 16,
+                                        "produto_tamanho_id": 3,
+                                        "titulo": "Frango com Catupiri",
+                                        "tamanho": "Pequena",
+                                        "valor": 29,
+                                        "imagem": "http://0.0.0.0:3333/files/1",
+                                        "pedido_id": 18,
+                                        "created_at": "2019-07-01 20:49:27",
+                                        "updated_at": "2019-07-01 20:49:27",
+                                        "produto_id": 5,
+                                        "produto_tipo_id": 4
+                                    }
+                                ]
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "number",
+                                    "description": "ID do pedido"
+                                },
+                                "cep": {
+                                    "type": "string",
+                                    "description": "CEP do cliente"
+                                },
+                                "rua": {
+                                    "type": "string",
+                                    "description": "endereço do cliente"
+                                },
+                                "numero": {
+                                    "type": "string",
+                                    "description": "Número do endereço do cliente"
+                                },
+                                "bairro": {
+                                    "type": "string",
+                                    "description": "Bairro do cliente"
+                                },
+                                "cidade": {
+                                    "type": "string",
+                                    "description": "Cidade do cliente"
+                                },
+                                "estado": {
+                                    "type": "string",
+                                    "description": "Estado do cliente"
+                                },
+                                "valor": {
+                                    "type": "number",
+                                    "description": "valor total do pedido"
+                                },
+                                "observacao": {
+                                    "type": "string",
+                                    "description": "Observação sobre o pedido"
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "description": "Status de pagamento do pedido. Valor padrão: Pendente"
+                                },
+                                "user_id": {
+                                    "type": "number",
+                                    "description": "ID do usuário"
+                                },
+                                "created_at": {
+                                    "type": "string",
+                                    "description": "Data de criação"
+                                },
+                                "updated_at": {
+                                    "type": "string",
+                                    "description": "Data de atualização"
+                                },
+                                "user": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "description": "ID do usuário"
+                                        },
+                                        "username": {
+                                            "type": "string",
+                                            "description": "Nome do usuário"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "description": "E-mail do usuário, deve ser único"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "description": "Tipo de usuário (ADMIN ou USUARIO)"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "description": "Senha criptografada"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "description": "Data de criação"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "description": "Data de atualização"
+                                        }
+                                    },
+                                    "description": "Objeto com os dados do usuário"
+                                },
+                                "produtos": {
+                                    "type": "array",
+                                    "description": "Itens do pedido",
+                                    "items": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Ver Pedido",
+                "description": "",
+                "tags": [
+                    "Pedidos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do pedido",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "id": 18,
+                                "cep": "01532001",
+                                "rua": "R CASTRO ALVES",
+                                "numero": "11",
+                                "bairro": "ACLIMACAO",
+                                "cidade": "",
+                                "estado": "",
+                                "valor": 29,
+                                "observacao": "bins",
+                                "status": "PAGO",
+                                "user_id": 7,
+                                "created_at": "2019-07-01 20:49:26",
+                                "updated_at": "2019-07-01 20:49:26",
+                                "user": {
+                                    "id": 7,
+                                    "username": "teste",
+                                    "email": "teste@teste.com.br",
+                                    "password": "$2a$10$tN6OUF2XaqmNhodHpbplsOxjIUprWmy88TUMesZvZW.2YZUVNmFy2",
+                                    "type": "USUARIO",
+                                    "created_at": "2019-06-30 10:47:21",
+                                    "updated_at": "2019-06-30 10:47:21"
+                                },
+                                "produtos": [
+                                    {
+                                        "id": 16,
+                                        "produto_tamanho_id": 3,
+                                        "titulo": "Frango com Catupiri",
+                                        "tamanho": "Pequena",
+                                        "valor": 29,
+                                        "imagem": "http://0.0.0.0:3333/files/1",
+                                        "pedido_id": 18,
+                                        "created_at": "2019-07-01 20:49:27",
+                                        "updated_at": "2019-07-01 20:49:27",
+                                        "produto_id": 5,
+                                        "produto_tipo_id": 4
+                                    }
+                                ]
+                            }
+                        },
+                        "schema": {
+                            "type": "array",
+                            "items": {}
+                        }
+                    }
+                },
+                "summary": "Atualizar Endereço, Status e Observação",
+                "description": "",
+                "tags": [
+                    "Pedidos"
+                ],
+                "parameters": [],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "message": "Pedido excluído com sucesso"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "number",
+                                    "description": "ID do pedido"
+                                },
+                                "cep": {
+                                    "type": "string",
+                                    "description": "CEP do cliente"
+                                },
+                                "rua": {
+                                    "type": "string",
+                                    "description": "endereço do cliente"
+                                },
+                                "numero": {
+                                    "type": "string",
+                                    "description": "Número do endereço do cliente"
+                                },
+                                "bairro": {
+                                    "type": "string",
+                                    "description": "Bairro do cliente"
+                                },
+                                "cidade": {
+                                    "type": "string",
+                                    "description": "Cidade do cliente"
+                                },
+                                "estado": {
+                                    "type": "string",
+                                    "description": "Estado do cliente"
+                                },
+                                "valor": {
+                                    "type": "number",
+                                    "description": "valor total do pedido"
+                                },
+                                "observacao": {
+                                    "type": "string",
+                                    "description": "Observação sobre o pedido"
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "description": "Status de pagamento do pedido. Valor padrão: Pendente"
+                                },
+                                "user_id": {
+                                    "type": "number",
+                                    "description": "ID do usuário"
+                                },
+                                "created_at": {
+                                    "type": "string",
+                                    "description": "Data de criação"
+                                },
+                                "updated_at": {
+                                    "type": "string",
+                                    "description": "Data de atualização"
+                                },
+                                "user": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "description": "ID do usuário"
+                                        },
+                                        "username": {
+                                            "type": "string",
+                                            "description": "Nome do usuário"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "description": "E-mail do usuário, deve ser único"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "description": "Tipo de usuário (ADMIN ou USUARIO)"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "description": "Senha criptografada"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "description": "Data de criação"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "description": "Data de atualização"
+                                        }
+                                    },
+                                    "description": "Objeto com os dados do usuário"
+                                },
+                                "produtos": {
+                                    "type": "array",
+                                    "description": "Itens do pedido",
+                                    "items": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Excluir Pedido",
+                "description": "",
+                "tags": [
+                    "Pedidos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do pedido",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/pedidos/app/user": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 18,
+                                    "cep": "01532001",
+                                    "rua": "R CASTRO ALVES",
+                                    "numero": "11",
+                                    "bairro": "ACLIMACAO",
+                                    "cidade": "",
+                                    "estado": "",
+                                    "valor": 29,
+                                    "observacao": "bins",
+                                    "status": "PENDENTE",
+                                    "user_id": 7,
+                                    "created_at": "2019-07-01 20:49:26",
+                                    "updated_at": "2019-07-01 20:49:26",
+                                    "user": {
+                                        "id": 7,
+                                        "username": "teste",
+                                        "email": "teste@teste.com.br",
+                                        "password": "$2a$10$tN6OUF2XaqmNhodHpbplsOxjIUprWmy88TUMesZvZW.2YZUVNmFy2",
+                                        "type": "USUARIO",
+                                        "created_at": "2019-06-30 10:47:21",
+                                        "updated_at": "2019-06-30 10:47:21"
+                                    },
+                                    "produtos": [
+                                        {
+                                            "id": 16,
+                                            "produto_tamanho_id": 3,
+                                            "titulo": "Frango com Catupiri",
+                                            "tamanho": "Pequena",
+                                            "valor": 29,
+                                            "imagem": "http://0.0.0.0:3333/files/1",
+                                            "pedido_id": 18,
+                                            "created_at": "2019-07-01 20:49:27",
+                                            "updated_at": "2019-07-01 20:49:27",
+                                            "produto_id": 5,
+                                            "produto_tipo_id": 4
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": 19,
+                                    "cep": "01532001",
+                                    "rua": "R CASTRO ALVES",
+                                    "numero": "11",
+                                    "bairro": "ACLIMACAO",
+                                    "cidade": "",
+                                    "estado": "",
+                                    "valor": 29,
+                                    "observacao": "bins",
+                                    "status": "PENDENTE",
+                                    "user_id": 7,
+                                    "created_at": "2019-07-01 20:49:26",
+                                    "updated_at": "2019-07-01 20:49:26",
+                                    "user": {
+                                        "id": 7,
+                                        "username": "teste",
+                                        "email": "teste@teste.com.br",
+                                        "password": "$2a$10$tN6OUF2XaqmNhodHpbplsOxjIUprWmy88TUMesZvZW.2YZUVNmFy2",
+                                        "type": "USUARIO",
+                                        "created_at": "2019-06-30 10:47:21",
+                                        "updated_at": "2019-06-30 10:47:21"
+                                    },
+                                    "produtos": [
+                                        {
+                                            "id": 17,
+                                            "produto_tamanho_id": 3,
+                                            "titulo": "Frango com Catupiri",
+                                            "tamanho": "Pequena",
+                                            "valor": 29,
+                                            "imagem": "http://0.0.0.0:3333/files/1",
+                                            "pedido_id": 18,
+                                            "created_at": "2019-07-01 20:49:27",
+                                            "updated_at": "2019-07-01 20:49:27",
+                                            "produto_id": 5,
+                                            "produto_tipo_id": 4
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "type": "array",
+                            "items": {}
+                        }
+                    }
+                },
+                "summary": "Pedidos do usuário logado no aplicativo",
+                "description": "",
+                "tags": [
+                    "Pedidos"
+                ],
+                "parameters": [],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/pedidos/admin/dashboard": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "pedidos": 5,
+                                "usuarios": 5,
+                                "recebido": 40,
+                                "pendente": 0,
+                                "ticket_medio": 8,
+                                "categorias": 5,
+                                "tipos": 7,
+                                "tamanhos": 7,
+                                "mais_vendidos": [
+                                    {
+                                        "categoria": "Pizzas",
+                                        "tipo": "Portuguesa",
+                                        "tamanho": "Grande",
+                                        "total": 40
+                                    }
+                                ]
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "pedidos": {
+                                    "type": "number",
+                                    "description": "Quantidade de pedidos"
+                                },
+                                "usuarios": {
+                                    "type": "number",
+                                    "description": "Quantidade de usuários"
+                                },
+                                "recebido": {
+                                    "type": "number",
+                                    "description": "Valor Recebido"
+                                },
+                                "pendente": {
+                                    "type": "number",
+                                    "description": "Valor a Receber"
+                                },
+                                "ticket_medio": {
+                                    "type": "number",
+                                    "description": "Valor médio gasto por cliente"
+                                },
+                                "categorias": {
+                                    "type": "number",
+                                    "description": "Total de categorias de produtos"
+                                },
+                                "tipos": {
+                                    "type": "number",
+                                    "description": "Total de tipos de produtos"
+                                },
+                                "tamanhos": {
+                                    "type": "number",
+                                    "description": "Total de tamanhos de produtos"
+                                },
+                                "mais_vendidos": {
+                                    "type": "string",
+                                    "description": "Array com os produtos mais vendidos por quantidade"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Indicadores do sistema",
+                "description": "",
+                "tags": [
+                    "Pedidos"
+                ],
+                "parameters": [],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "Sobre": {},
+        "Criar Usuário": {},
+        "Login do usuário": {},
+        "Imagens dos Produtos, Tipos e Tamanhos": {},
+        "Enviar Imagem do Produto": {},
+        "Produtos": {},
+        "Tipos": {},
+        "Tamanhos de produtos": {},
+        "Tamanhos": {},
+        "Pedidos": {},
+        "Pedido": {},
+        "Pedidos do usuário": {},
+        "Dashboard": {},
+        "UsuarioResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "ID do usuário"
+                },
+                "username": {
+                    "type": "string",
+                    "description": "Nome do usuário"
+                },
+                "email": {
+                    "type": "string",
+                    "description": "E-mail do usuário, deve ser único"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Tipo de usuário (ADMIN ou USUARIO)"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "Senha criptografada"
+                },
+                "created_at": {
+                    "type": "string",
+                    "description": "Data de criação"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Data de atualização"
+                }
+            }
+        },
+        "TokenResponse": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "tipo de token"
+                },
+                "token": {
+                    "type": "string",
+                    "description": "Token criptografado"
+                },
+                "refreshToken": {
+                    "type": "string",
+                    "description": "Tempo de vida do token"
+                }
+            }
+        },
+        "LoginResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "description": "Retorno da operação"
+                },
+                "user": {
+                    "$ref": "#/definitions/UsuarioResponse",
+                    "description": "Objeto com os dados do usuário"
+                },
+                "token": {
+                    "type": "string",
+                    "description": "Token criptografado"
+                }
+            }
+        },
+        "CreateUserResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "description": "Retorno da operação"
+                },
+                "user": {
+                    "$ref": "#/definitions/UsuarioResponse",
+                    "description": "Objeto com os dados do usuário"
+                },
+                "token": {
+                    "$ref": "#/definitions/TokenResponse",
+                    "description": "Objeto com os dados do token"
+                }
+            }
+        },
+        "MessageResponse": {
+            "type": "object",
+            "properties": {
+                "Message": {
+                    "type": "string",
+                    "description": "Retorno da operação"
+                }
+            }
+        },
+        "FileObject": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "ID do arquivo"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Nome do arquivo"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Tipo do arquivo"
+                },
+                "subtype": {
+                    "type": "string",
+                    "description": "Extensão do arquivo"
+                },
+                "created_at": {
+                    "type": "string",
+                    "description": "Data de criação"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Data de atualização"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "Link para acessar a imagem"
+                }
+            }
+        },
+        "FileResponse": {
+            "type": "object",
+            "properties": {
+                "file": {
+                    "$ref": "#/definitions/FileObject",
+                    "description": "Objeto com os dados da imagem"
+                }
+            }
+        },
+        "ProdutoResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "ID do registro"
+                },
+                "nome": {
+                    "type": "string",
+                    "description": "Nome da categoria"
+                },
+                "descricao": {
+                    "type": "string",
+                    "description": "Descrição da categoria"
+                },
+                "tempo_estimado": {
+                    "type": "string",
+                    "description": "Tempo estimado"
+                },
+                "file_id": {
+                    "type": "number",
+                    "description": "ID do arquivo"
+                },
+                "created_at": {
+                    "type": "string",
+                    "description": "Data de criação"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Data de atualização"
+                },
+                "file": {
+                    "$ref": "#/definitions/FileObject",
+                    "description": "Imagem do tipo de produto"
+                }
+            }
+        },
+        "ProdutosResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "ID do registro"
+                },
+                "nome": {
+                    "type": "string",
+                    "description": "Nome da categoria"
+                },
+                "descricao": {
+                    "type": "string",
+                    "description": "Descrição da categoria"
+                },
+                "tempo_estimado": {
+                    "type": "string",
+                    "description": "Tempo estimado"
+                },
+                "file_id": {
+                    "type": "number",
+                    "description": "ID do arquivo"
+                },
+                "created_at": {
+                    "type": "string",
+                    "description": "Data de criação"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Data de atualização"
+                }
+            }
+        },
+        "TiposResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "ID do registro"
+                },
+                "titulo": {
+                    "type": "string",
+                    "description": "Nome do tipo de produto"
+                },
+                "produto_id": {
+                    "type": "number",
+                    "description": "ID da categoria do produto"
+                },
+                "file_id": {
+                    "type": "number",
+                    "description": "ID da imagem"
+                },
+                "created_at": {
+                    "type": "string",
+                    "description": "Data de criação"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Data de atualização"
+                },
+                "file": {
+                    "$ref": "#/definitions/FileObject",
+                    "description": "Imagem do tipo de produto"
+                }
+            }
+        },
+        "TipoResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "ID do registro"
+                },
+                "titulo": {
+                    "type": "string",
+                    "description": "Nome do tipo de produto"
+                },
+                "produto_id": {
+                    "type": "number",
+                    "description": "ID da categoria do produto"
+                },
+                "file_id": {
+                    "type": "number",
+                    "description": "ID da imagem"
+                },
+                "created_at": {
+                    "type": "string",
+                    "description": "Data de criação"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Data de atualização"
+                }
+            }
+        },
+        "TamanhosResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "ID do registro"
+                },
+                "titulo": {
+                    "type": "string",
+                    "description": "Nome do tipo de produto"
+                },
+                "produto_id": {
+                    "type": "number",
+                    "description": "ID da categoria do produto"
+                },
+                "file_id": {
+                    "type": "number",
+                    "description": "ID da imagem"
+                },
+                "created_at": {
+                    "type": "string",
+                    "description": "Data de criação"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Data de atualização"
+                },
+                "file": {
+                    "$ref": "#/definitions/FileObject",
+                    "description": "Imagem do tipo de produto"
+                },
+                "tipos": {
+                    "type": "string",
+                    "description": "vazio"
+                }
+            }
+        },
+        "TamanhoResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "ID do registro"
+                },
+                "titulo": {
+                    "type": "string",
+                    "description": "Nome do tamanho do tipo de produto"
+                },
+                "valor": {
+                    "type": "number",
+                    "description": "Valor deste tipo de tamanho de produto"
+                },
+                "file_id": {
+                    "type": "number",
+                    "description": "ID da imagem"
+                },
+                "produto_tipo_id": {
+                    "type": "number",
+                    "description": "ID do tipo de produto"
+                },
+                "created_at": {
+                    "type": "string",
+                    "description": "Data de criação"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Data de atualização"
+                }
+            }
+        },
+        "ProdutoItensResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "ID do item do pedido"
+                },
+                "produto_tamanho_id": {
+                    "type": "number",
+                    "description": "ID do tamanho do produto"
+                },
+                "titulo": {
+                    "type": "string",
+                    "description": "Descrição do produto"
+                },
+                "tamanho": {
+                    "type": "string",
+                    "description": "Descrição do tamanho do produto"
+                },
+                "valor": {
+                    "type": "number",
+                    "description": "valor do item do pedido"
+                },
+                "imagem": {
+                    "type": "string",
+                    "description": "Link para a imagem do produto"
+                },
+                "pedido_id": {
+                    "type": "number",
+                    "description": "ID do pedido"
+                },
+                "created_at": {
+                    "type": "string",
+                    "description": "Data de criação"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Data de atualização"
+                },
+                "produto_id": {
+                    "type": "number",
+                    "description": "ID da categoria de produto"
+                },
+                "produto_tipo_id": {
+                    "type": "number",
+                    "description": "ID do tipo de produto"
+                }
+            }
+        },
+        "PedidosResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "ID do pedido"
+                },
+                "cep": {
+                    "type": "string",
+                    "description": "CEP do cliente"
+                },
+                "rua": {
+                    "type": "string",
+                    "description": "endereço do cliente"
+                },
+                "numero": {
+                    "type": "string",
+                    "description": "Número do endereço do cliente"
+                },
+                "bairro": {
+                    "type": "string",
+                    "description": "Bairro do cliente"
+                },
+                "cidade": {
+                    "type": "string",
+                    "description": "Cidade do cliente"
+                },
+                "estado": {
+                    "type": "string",
+                    "description": "Estado do cliente"
+                },
+                "valor": {
+                    "type": "number",
+                    "description": "valor total do pedido"
+                },
+                "observacao": {
+                    "type": "string",
+                    "description": "Observação sobre o pedido"
+                },
+                "status": {
+                    "type": "string",
+                    "description": "Status de pagamento do pedido. Valor padrão: Pendente"
+                },
+                "user_id": {
+                    "type": "number",
+                    "description": "ID do usuário"
+                },
+                "created_at": {
+                    "type": "string",
+                    "description": "Data de criação"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Data de atualização"
+                },
+                "user": {
+                    "$ref": "#/definitions/UsuarioResponse",
+                    "description": "Objeto com os dados do usuário"
+                },
+                "produtos": {
+                    "type": "array",
+                    "items": {},
+                    "description": "Itens do pedido"
+                }
+            }
+        },
+        "DashboardResponse": {
+            "type": "object",
+            "properties": {
+                "pedidos": {
+                    "type": "number",
+                    "description": "Quantidade de pedidos"
+                },
+                "usuarios": {
+                    "type": "number",
+                    "description": "Quantidade de usuários"
+                },
+                "recebido": {
+                    "type": "number",
+                    "description": "Valor Recebido"
+                },
+                "pendente": {
+                    "type": "number",
+                    "description": "Valor a Receber"
+                },
+                "ticket_medio": {
+                    "type": "number",
+                    "description": "Valor médio gasto por cliente"
+                },
+                "categorias": {
+                    "type": "number",
+                    "description": "Total de categorias de produtos"
+                },
+                "tipos": {
+                    "type": "number",
+                    "description": "Total de tipos de produtos"
+                },
+                "tamanhos": {
+                    "type": "number",
+                    "description": "Total de tamanhos de produtos"
+                },
+                "mais_vendidos": {
+                    "type": "string",
+                    "description": "Array com os produtos mais vendidos por quantidade"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {},
+    "tags": [
+        {
+            "name": "Usuário"
+        },
+        {
+            "name": "Files",
+            "description": "Imagens dos produtos da Pizzaria"
+        },
+        {
+            "name": "Produtos",
+            "description": "Rota com as categorias de produtos da Pizzaria"
+        },
+        {
+            "name": "Tipos",
+            "description": "Rota com os tipos de produtos de uma categoria de produtos da Pizzaria"
+        },
+        {
+            "name": "Tamanhos",
+            "description": "Rota com os tamanhos de um tipo de produto da Pizzaria"
+        },
+        {
+            "name": "Pedidos",
+            "description": "Rota com os pedidos feitos na Pizzaria"
+        }
+    ]
+}

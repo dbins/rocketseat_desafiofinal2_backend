@@ -8,7 +8,7 @@ class UserController {
     try {
       const user = await User.create(data);
       const token = await auth.attempt(data.email, data.password);
-      return response.status(201).json({
+      return response.status(200).json({
         message: "Usuário gravado com sucesso!",
         user: user,
         token: token

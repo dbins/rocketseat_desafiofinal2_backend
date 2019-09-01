@@ -33,11 +33,21 @@
     "@adonisjs/shield": "^1.0.8",
     "@adonisjs/validator": "^5.0.6",
     "adonis-kue": "^5.0.1",
+    "form-data": "^2.5.0",
+    "hooks": "^0.3.2",
     "moment": "^2.24.0",
+    "multi-part": "^2.0.0",
     "mysql": "^2.17.1",
+    "stream-to-string": "^1.2.0",
     "youch": "^2.0.10"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "faker": "^4.1.0",
+    "prettier": "^1.18.2"
+  },
   "autoload": {
     "App": "./app"
   }

@@ -64,7 +64,18 @@ class ProdutoController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show({ params, request, response, view }) {}
+  async show({ params, request, response, view }) {
+	const produto = await Produto.find(params.id);
+    if (produto) {
+        return response
+          .status(200)
+          .send(produto);
+    } else {
+        return response
+          .status(404)
+          .send({ message: "O ID do produto não foi localizado" });
+    }
+  }
 
   /**
    * Render a form to update an existing produto.

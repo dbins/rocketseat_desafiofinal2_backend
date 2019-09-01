@@ -15,7 +15,10 @@ class PedidoSchema extends Schema {
       table.string("estado").notNullable();
       table.decimal("valor").notNullable();
       table.string("observacao").nullable();
-	  table.string("status").notNullable();
+      table.string("forma_pagamento").nullable();
+      table.string("bandeira", 200).nullable();
+      table.string("status", 200).notNullable();
+      table.string("nsu", 200).notNullable();
       table
         .integer("user_id")
         .unsigned()

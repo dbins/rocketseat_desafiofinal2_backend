@@ -25,7 +25,7 @@ API do desafio final da RocketSeat feita com AdonisJS + banco de dados MySQL!
 				"password": "1234576"
 			}
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes (CreateUserResponse)
 	
@@ -49,7 +49,7 @@ API do desafio final da RocketSeat feita com AdonisJS + banco de dados MySQL!
 				}
 			}
 
-## Login do usuário [/sessions]
+## Login [/sessions]
 
 ### Login do usuário [POST]
 
@@ -60,30 +60,41 @@ API do desafio final da RocketSeat feita com AdonisJS + banco de dados MySQL!
 			{
 				"email": "bins22@ig.com.br",
 				"password": "1234576",
-				"origin": "MOBILE"
+				"origin": "MOBILE",
+				"sistema": "ANDROID",
+				"versao": "4",
+				"api": "16",
+				"marca": "SAMSUNG"
 
 			}
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes (LoginResponse)
 
 	- Body
 
 			{
-				"message": "Login realizado com sucesso",
 				"user": {
 					"id": 67,
 					"username": "Bins",
 					"email": "bins22@ig.com.br",
 					"password": "$2a$10$Qk5RWCW9hFcssle8.Ro4PunagPKoKkaeAMw7.N45E7ViUHBw8Wxii",
+					"type": "USUARIO",
 					"created_at": "2019-05-21 23:11:34",
 					"updated_at": "2019-05-21 23:12:57",
+					"id_google": "",
+					"id_facebook": "12345678910"
 				}
-				"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjQ4LCJpYXQiOjE1NTcwODQzMTN9.uJ-yVN3oAzuLQ7pz0PU4UK7DggGf1VGnXN3XZZzDZHk"
+				{
+                "token": {
+                   "type": "bearer",
+                   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEyLCJpYXQiOjE1NjM3MTczNzN9.otd3_U-PxnME3M7rh0FnKXYBi0dhDOaShaPDN9Qk49w",
+                   "refreshToken": null
+				}
 			}
 			
-- Response 404 (application/json)
+- Response 404 (application/json; charset=utf-8)
 
 	- Body		
 
@@ -91,7 +102,7 @@ API do desafio final da RocketSeat feita com AdonisJS + banco de dados MySQL!
 				"message": "O e-mail informado não foi localizado"
 			}		
 
-- Response 401 (application/json)
+- Response 401 (application/json; charset=utf-8)
 
 	- Body		
 
@@ -99,14 +110,85 @@ API do desafio final da RocketSeat feita com AdonisJS + banco de dados MySQL!
 				"message": "A senha ou o email informados estão incorretos"
 			}			
 
-- Response 403 (application/json)
+- Response 403 (application/json; charset=utf-8)
 
 	- Body		
 
 			{
 				"message": "Erro ao tentar logar o usuário. Verifique o login e a senha informados"
 			}			
-		
+
+## Login do usuário [/sessions_social]
+
+### Login do usuário por rede social. Se o usuário não existir, ele será criado [POST]
+
+- Request (application/json)
+
+	- Body
+
+			{
+				"username": "Bins",
+				"email": "bins22@ig.com.br",
+				"password": "1234576",
+				"origin": "MOBILE",
+				"sistema": "ANDROID",
+				"versao": "4",
+				"api": "16",
+				"marca": "SAMSUNG",
+				"social_origem": "FACEBOOK",
+				"social_id": "12345678910"
+			}
+
+- Response 200 (application/json; charset=utf-8)
+
+	- Attributes (LoginResponse)
+
+	- Body
+
+			{
+				"user": {
+					"id": 67,
+					"username": "Bins",
+					"email": "bins22@ig.com.br",
+					"password": "$2a$10$Qk5RWCW9hFcssle8.Ro4PunagPKoKkaeAMw7.N45E7ViUHBw8Wxii",
+					"type": "USUARIO",
+					"created_at": "2019-05-21 23:11:34",
+					"updated_at": "2019-05-21 23:12:57",
+					"id_google": "",
+					"id_facebook": "12345678910"
+				}
+				{
+                "token": {
+                   "type": "bearer",
+                   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEyLCJpYXQiOjE1NjM3MTczNzN9.otd3_U-PxnME3M7rh0FnKXYBi0dhDOaShaPDN9Qk49w",
+                   "refreshToken": null
+				}
+			}
+			
+- Response 404 (application/json; charset=utf-8)
+
+	- Body		
+
+			{
+				"message": "O e-mail informado não foi localizado"
+			}		
+
+- Response 401 (application/json; charset=utf-8)
+
+	- Body		
+
+			{
+				"message": "A senha ou o email informados estão incorretos"
+			}			
+
+- Response 403 (application/json; charset=utf-8)
+
+	- Body		
+
+			{
+				"message": "Erro ao tentar logar o usuário. Verifique o login e a senha informados"
+			}	
+			
 # Group Files
 Imagens dos produtos da Pizzaria			
 			
@@ -118,24 +200,9 @@ Imagens dos produtos da Pizzaria
 
 	- id: 1 (number) - ID do arquivo
 
+- Request (application/json)   	
 
-- Response 200 (application/json)		
-
-	- Attributes(FileResponse)
-
-	- Body
-	
-			{
-				"file": {
-					"file": "1558396610564.jpeg",
-					"name": "0_11b748_d4d498a0_XXL.jpg",
-					"type": "image",
-					"subtype": "jpeg",
-					"created_at": "2019-05-20 20:56:50",
-					"updated_at": "2019-05-20 20:56:50",
-					"id": 5
-				}
-			}
+- Response 200 (image/jpeg)  
 
 ### Atualizar Imagem do produto [PUT]
 O envio do arquivo deve ser feito atráves de form-data (multipart/form-data). O nome da variável deve ser file
@@ -147,7 +214,7 @@ O envio do arquivo deve ser feito atráves de form-data (multipart/form-data). O
 - Request (multipart/form-data; boundary=---BOUNDARY)
 
         -----BOUNDARY
-        Content-Disposition: form-data; name="file"; filename="image.jpg"
+        Content-Disposition: form-data; name="file[file]"; filename="image.jpg"
         Content-Type: image/jpeg
         Content-Transfer-Encoding: base64
 
@@ -163,7 +230,7 @@ O envio do arquivo deve ser feito atráves de form-data (multipart/form-data). O
 
 			Authentication: Bearer JWT	
 			
-- Response 200 (application/json)		
+- Response 200 (application/json; charset=utf-8)		
 
 	- Attributes(FileResponse)
 
@@ -195,14 +262,14 @@ O envio do arquivo deve ser feito atráves de form-data (multipart/form-data). O
 			Authentication: Bearer JWT
 
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes(MessageResponse)
 
 	- Body			
 
 			{
-				"message": "Arquivo excluído com sucesso "
+				"message": "Imagem excluída com sucesso "
 			}
 
 
@@ -213,7 +280,7 @@ O envio do arquivo deve ser feito atráves de form-data (multipart/form-data). O
 - Request (multipart/form-data; boundary=---BOUNDARY)
 
         -----BOUNDARY
-        Content-Disposition: form-data; name="file"; filename="image.jpg"
+        Content-Disposition: form-data; name="file[file]"; filename="image.jpg"
         Content-Type: image/jpeg
         Content-Transfer-Encoding: base64
 
@@ -229,7 +296,7 @@ O envio do arquivo deve ser feito atráves de form-data (multipart/form-data). O
 
 			Authentication: Bearer JWT	
 		
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes(FileResponse)
 
@@ -261,7 +328,7 @@ Rota com as categorias de produtos da Pizzaria
 			Authentication: Bearer JWT
 		
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes (array[ProdutosResponse])
 
@@ -328,7 +395,7 @@ Rota com as categorias de produtos da Pizzaria
 			Authentication: Bearer JWT
 		
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes (ProdutoResponse)
 
@@ -358,7 +425,7 @@ Rota com as categorias de produtos da Pizzaria
 			Authentication: Bearer JWT
 		
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes (ProdutoResponse)
 
@@ -397,7 +464,7 @@ Rota com as categorias de produtos da Pizzaria
 			Authentication: Bearer JWT
 		
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes (ProdutoResponse)
 
@@ -426,7 +493,7 @@ Rota com as categorias de produtos da Pizzaria
 			Authentication: Bearer JWT
 		
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Body			
 
@@ -453,7 +520,7 @@ Rota com os tipos de produtos de uma categoria de produtos da Pizzaria
 			Authentication: Bearer JWT
 		
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes (array[TiposResponse])
 
@@ -500,6 +567,10 @@ Rota com os tipos de produtos de uma categoria de produtos da Pizzaria
 
 ### Cadastrar tipo de produto [POST]		  
 
+- Parameters
+
+	- id_produto: 1 (number) - ID do produto
+
 - Request (application/json)
 
 	- Headers
@@ -513,7 +584,7 @@ Rota com os tipos de produtos de uma categoria de produtos da Pizzaria
 				"file_id": 5
 			}	
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes (TipoResponse)
 
@@ -522,7 +593,7 @@ Rota com os tipos de produtos de uma categoria de produtos da Pizzaria
 			{
 				"titulo": "Frango com Catupiri",
 				"file_id": 5,
-				"produto_id": "5",
+				"produto_id": 5,
 				"created_at": "2019-06-30 09:36:57",
 				"updated_at": "2019-06-30 09:36:57",
 				"id": 3
@@ -544,7 +615,7 @@ Rota com os tipos de produtos de uma categoria de produtos da Pizzaria
 			Authentication: Bearer JWT
 	
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes (TipoResponse)
 
@@ -553,7 +624,7 @@ Rota com os tipos de produtos de uma categoria de produtos da Pizzaria
 			{
 				"titulo": "Frango com Catupiri",
 				"file_id": 5,
-				"produto_id": "5",
+				"produto_id": 5,
 				"created_at": "2019-06-30 09:36:57",
 				"updated_at": "2019-06-30 09:36:57",
 				"id": 3
@@ -582,7 +653,7 @@ Rota com os tipos de produtos de uma categoria de produtos da Pizzaria
 				"file_id": 5
 			}	
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes (TipoResponse)
 
@@ -591,7 +662,7 @@ Rota com os tipos de produtos de uma categoria de produtos da Pizzaria
 			{
 				"titulo": "Frango com Catupiri",
 				"file_id": 5,
-				"produto_id": "5",
+				"produto_id": 5,
 				"created_at": "2019-06-30 09:36:57",
 				"updated_at": "2019-06-30 09:36:57",
 				"id": 3
@@ -616,7 +687,7 @@ Rota com os tipos de produtos de uma categoria de produtos da Pizzaria
 
 		
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes (TipoResponse)
 
@@ -631,72 +702,45 @@ Rota com os tipos de produtos de uma categoria de produtos da Pizzaria
 # Group Tamanhos
 Rota com os tamanhos de um tipo de produto da Pizzaria
 			
-## Tamanhos de produtos [/produtos/{id_produto}/tipos/{id_tamanho}/]
+## Tamanhos de produtos [/produtos/{id_produto}/tipos/{id_tipo}/]
 
 ### Tamanhos de produtos por tipo [GET]
 
 - Parameters
 
-	- id_produto: 1 (number) - ID do produto
-	- id_tamanho: 1 (number) - ID do tamanho do produto
-			
+   - id_produto: 1 (number) - ID do produto
+   - id_tipo: 1 (number) - ID do tipo de produto
+         
 - Request (application/json)
 
-	- Headers
+   - Headers
 
-			Authentication: Bearer JWT
-		
+         Authentication: Bearer JWT
+      
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
-	- Attributes (array[TamanhosResponse])
+   - Attributes (TipoResponse)
 
-	- Body			
-			
-			[
-				{
-					"id": 2,
-					"titulo": "",
-					"valor": 0,
-					"produto_tipo_id": 4,
-					"file_id": 1,
-					"created_at": "2019-06-30 09:37:57",
-					"updated_at": "2019-06-30 09:37:57",
-					"file": {
-					  "id": 1,
-					  "file": "1561896543899.png",
-					  "name": "03a11555328101.59803b89a0624.png",
-					  "type": "image",
-					  "subtype": "png",
-					  "created_at": "2019-06-30 09:09:03",
-					  "updated_at": "2019-06-30 09:09:03",
-					  "url": "http://192.168.0.100:3333/files/1"
-					},
-					"tipos": null
-				},
-				{
-					"id": 3,
-					"titulo": "Pequena",
-					"valor": 29,
-					"produto_tipo_id": 4,
-					"file_id": 1,
-					"created_at": "2019-06-30 09:40:41",
-					"updated_at": "2019-06-30 09:40:41",
-					"file": {
-					  "id": 1,
-					  "file": "1561896543899.png",
-					  "name": "03a11555328101.59803b89a0624.png",
-					  "type": "image",
-					  "subtype": "png",
-					  "created_at": "2019-06-30 09:09:03",
-					  "updated_at": "2019-06-30 09:09:03",
-					  "url": "http://192.168.0.100:3333/files/1"
-					},
-					"tipos": null
-				}
-			]
-
+   - Body         
+         
+        
+           {
+               "id": 2,
+               "titulo": "",
+               "produto_id": 4,
+               "file_id": 1,
+               "created_at": "2019-06-30 09:37:57",
+               "updated_at": "2019-06-30 09:37:57"
+            }
+## Tamanhos de produtos  [/produtos/{id_produto}/tipos/{id_tipo}/tamanhos/] 
 ### Cadastrar tamanho de produto [POST]		  
+
+- Parameters
+
+	- id_produto: 1 (number) - ID do produto
+	- id_tipo: 1 (number) - ID do tipo do produto
+
 
 - Request (application/json)
 
@@ -712,7 +756,7 @@ Rota com os tamanhos de um tipo de produto da Pizzaria
 				"file_id": 1
 			}
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes (TamanhoResponse)
 
@@ -720,15 +764,15 @@ Rota com os tamanhos de um tipo de produto da Pizzaria
 
 			{
 				"titulo": "Pequena",
-				"valor": "29",
+				"valor": 29,
 				"file_id": 1,
-				"produto_tipo_id": "4",
+				"produto_tipo_id": 4,
 				"created_at": "2019-06-30 09:40:41",
 				"updated_at": "2019-06-30 09:40:41",
 				"id": 3
 			}
 
-## Tamanhos [/produtos/{id_produto}/tipos/{id_tipo}/tamanhos/{id_tamanho}/{id_registro}]			
+## Tamanhos [/produtos/{id_produto}/tipos/{id_tipo}/tamanhos/{id_tamanho}/]			
 ### Ver tamanho de produto [GET]		
 
 - Parameters
@@ -736,7 +780,6 @@ Rota com os tamanhos de um tipo de produto da Pizzaria
 	- id_produto: 1 (number) - ID do produto
 	- id_tipo: 1 (number) - ID do tipo do produto			
 	- id_tamanho: 1 (number) - ID do tamanho do produto
-	- id_registro: 1 (number) - ID do registro
 
 - Request (application/json)
 
@@ -745,7 +788,7 @@ Rota com os tamanhos de um tipo de produto da Pizzaria
 			Authentication: Bearer JWT
 	
 	
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes (TamanhoResponse)
 
@@ -786,7 +829,7 @@ Rota com os tamanhos de um tipo de produto da Pizzaria
 				"file_id": 1
 			}
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes (TamanhoResponse)
 
@@ -794,9 +837,9 @@ Rota com os tamanhos de um tipo de produto da Pizzaria
 
 			{
 				"titulo": "Pequena",
-				"valor": "29",
+				"valor": 29,
 				"file_id": 1,
-				"produto_tipo_id": "4",
+				"produto_tipo_id": 4,
 				"created_at": "2019-06-30 09:40:41",
 				"updated_at": "2019-06-30 09:40:41",
 				"id": 3
@@ -821,7 +864,7 @@ Rota com os tamanhos de um tipo de produto da Pizzaria
 	
 	- Body
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 
 	- Body	
@@ -849,7 +892,7 @@ Rota com os pedidos feitos na Pizzaria
 		- status: `PENDENTE` (string, optional) - Status do pagamento do pedido
 	
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes (array[PedidosResponse])
 
@@ -955,15 +998,15 @@ Rota com os pedidos feitos na Pizzaria
 				"valor": 29,
 				"status": "PENDENTE",
 				"user_id": 1,
-				"products": [
+				"produtos": [
 					{
 						"produto_tamanho_id": "1",
 						"titulo": "TESTE",
 						"tamanho": "PEQUENO",
 						"valor": "10",
 						"imagem": "http://0.0.0.0:3333/files/1",
-						"produto_id": "1",
-						"produto_tipo_id": "1",
+						"produto_id": 1,
+						"produto_tipo_id": "1"
 					},
 					{
 						"produto_tamanho_id": "1",
@@ -971,16 +1014,16 @@ Rota com os pedidos feitos na Pizzaria
 						"tamanho": "PEQUENO",
 						"valor": "10",
 						"imagem": "http://0.0.0.0:3333/files/1",
-						"produto_id": "1",
-						"produto_tipo_id": "1",
+						"produto_id": 1,
+						"produto_tipo_id": "1"
 					}
 				]
 				
 			}
 		
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
-	- Attributes (array[PedidosResponse])
+	- Attributes (MessageResponse)
 
 	- Body			
 
@@ -1003,7 +1046,7 @@ Rota com os pedidos feitos na Pizzaria
 			Authentication: Bearer JWT
 		
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes (PedidosResponse)
 
@@ -1050,8 +1093,12 @@ Rota com os pedidos feitos na Pizzaria
 			}
 
 ### Atualizar Endereço, Status e Observação [PUT]
+
+- Parameters
+
+	- id: 1 (number) - ID do pedido
 			
-- Request (application/json)
+- Request (application/json; charset=utf-8)
 
 	- Headers
 
@@ -1066,11 +1113,11 @@ Rota com os pedidos feitos na Pizzaria
 				"bairro": "ACLIMACAO",
 				"estado": "SP",
 				"cep": "01532001",
-				"status": "´PAGO",
+				"status": "PAGO"
 			}
 			
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes (array[PedidosResponse])
 
@@ -1130,9 +1177,9 @@ Rota com os pedidos feitos na Pizzaria
 			Authentication: Bearer JWT
 		
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
-	- Attributes (PedidosResponse)
+	- Attributes (MessageResponse)
 
 	- Body			
 		
@@ -1140,7 +1187,7 @@ Rota com os pedidos feitos na Pizzaria
 				"message": "Pedido excluído com sucesso"
 			}
 			
-## Pedidos do usuário [/orders/app/user]
+## Pedidos do usuário [/pedidos/app/user]
 
 ### Pedidos do usuário logado no aplicativo [GET]
 			
@@ -1151,7 +1198,7 @@ Rota com os pedidos feitos na Pizzaria
 			Authentication: Bearer JWT
 		
 
-- Response 200 (application/json)
+- Response 200 (application/json; charset=utf-8)
 
 	- Attributes (array[PedidosResponse])
 
@@ -1238,6 +1285,43 @@ Rota com os pedidos feitos na Pizzaria
 				}
 			]
 
+			
+## Dashboard [/pedidos/admin/dashboard]
+
+### Indicadores do sistema [GET]
+			
+- Request (application/json)
+
+	- Headers
+
+			Authentication: Bearer JWT
+		
+
+- Response 200 (application/json; charset=utf-8)
+
+	- Attributes (DashboardResponse)
+
+	- Body			
+			
+			{
+				"pedidos":5,
+				"usuarios":5,
+				"recebido":40,
+				"pendente":0,
+				"ticket_medio":8,
+				"categorias":5,
+				"tipos":7,
+				"tamanhos":7,
+				"mais_vendidos":[
+					{
+						"categoria":"Pizzas",
+						"tipo":"Portuguesa",
+						"tamanho":"Grande",
+						"total":40
+					}
+					
+				]
+			}
 
 # Data Structures
 
@@ -1250,19 +1334,20 @@ Rota com os pedidos feitos na Pizzaria
 - password (string) - Senha criptografada
 - created_at (string) - Data de criação
 - updated_at (string) - Data de atualização
-
+- id_google (string, nullable) - ID no Google
+- id_facebook (string, nullable) - ID no Facebook
 
 ## TokenResponse (object)
 
 - type (string) - tipo de token
 - token (string) - Token criptografado
-- refreshToken (string) - Tempo de vida do token
+- refreshToken (string, nullable) - Tempo de vida do token
 
 ## LoginResponse (object)
 
 - message (string) - Retorno da operação
 - user (UsuarioResponse) - Objeto com os dados do usuário
-- token (string) - Token criptografado
+- token (TokenResponse) - Token criptografado
 
 ## CreateUserResponse (object)
 
@@ -1293,7 +1378,7 @@ Rota com os pedidos feitos na Pizzaria
 - id (number) - ID do registro
 - nome (string) - Nome da categoria
 - descricao (string) - Descrição da categoria
-- tempo_estimado (string) -Tempo estimado
+- tempo_estimado (number) -Tempo estimado
 - file_id (number) - ID do arquivo
 - created_at (string) - Data de criação
 - updated_at (string) - Data de atualização
@@ -1304,7 +1389,7 @@ Rota com os pedidos feitos na Pizzaria
 - id (number) - ID do registro
 - nome (string) - Nome da categoria
 - descricao (string) - Descrição da categoria
-- tempo_estimado (string) -Tempo estimado
+- tempo_estimado (number) -Tempo estimado
 - file_id (number) - ID do arquivo
 - created_at (string) - Data de criação
 - updated_at (string) - Data de atualização
@@ -1380,3 +1465,15 @@ Rota com os pedidos feitos na Pizzaria
 - updated_at (string) - Data de atualização
 - user (UsuarioResponse) - Objeto com os dados do usuário
 - produtos (array[TiposResponse]) - Itens do pedido
+
+## DashboardResponse (object)
+
+- pedidos (number, nullable) - Quantidade de pedidos
+- usuarios (number, nullable) - Quantidade de usuários
+- recebido (number, nullable) - Valor Recebido
+- pendente (number, nullable) - Valor a Receber
+- ticket_medio (number, nullable) - Valor médio gasto por cliente
+- categorias (number, nullable) - Total de categorias de produtos
+- tipos (number, nullable) - Total de tipos de produtos
+- tamanhos (number, nullable) - Total de tamanhos de produtos
+- mais_vendidos: (array) - Array com os produtos mais vendidos por quantidade

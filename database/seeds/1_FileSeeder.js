@@ -1,5 +1,7 @@
 "use strict";
 const File = use("App/Models/File");
+const Helpers = use("Helpers");
+const Drive = use("Drive");
 /*
 |--------------------------------------------------------------------------
 | FileSeeder
@@ -77,6 +79,59 @@ class FileSeeder {
         type: "png"
       }
     ]);
+	
+	//Upload de arquivos
+	var fileName = "";
+	var upload;
+	upload =  Drive.get("../../resources/imagens/pizzas/pizzas.jpg");
+	fileName = "pizzas.jpg";
+	await upload.move(Helpers.tmpPath("uploads"), {name: fileName});
+
+	
+    upload =  Drive.get("../../resources/imagens/massas/massas.jpg");
+    fileName = "massas.jpg";
+    await upload.move(Helpers.tmpPath("uploads"), {name: fileName});
+	
+    upload =  Drive.get("../../resources/imagens/tamanhos/tamanho-gg.png");
+    fileName = "Pizza gigante.png";
+    await upload.move(Helpers.tmpPath("uploads"), {name: fileName});
+	
+    upload =  Drive.get("../../resources/imagens/tamanhos/tamanho-g.png");
+    fileName = "Pizza grande.png";
+    await upload.move(Helpers.tmpPath("uploads"), {name: fileName});
+    
+    upload =  Drive.get("../../resources/imagens/tamanhos/tamanho-m.png");
+    fileName = "Pizza média.png";
+    await upload.move(Helpers.tmpPath("uploads"), {name: fileName});
+
+    upload =  Drive.get("../../resources/imagens/tamanhos/tamanho-p.png");
+    fileName = "Pizza pequena.png";
+    await upload.move(Helpers.tmpPath("uploads"), {name: fileName});
+	
+    upload =  Drive.get("../../resources/imagens/pizzas/bacon.png");
+    fileName = "Pizza Bacon.png";
+    await upload.move(Helpers.tmpPath("uploads"), {name: fileName});
+	
+    upload =  Drive.get("../../resources/imagens/pizzas/frango_frito.png");
+    fileName = "Pizza frango_frito.png";
+	await upload.move(Helpers.tmpPath("uploads"), {name: fileName});    
+	
+	upload =  Drive.get("../../resources/imagens/pizzas/margherita.png");
+    fileName = "Pizza margherita.png";
+    await upload.move(Helpers.tmpPath("uploads"), {name: fileName});
+	
+    upload =  Drive.get("../../resources/imagens/pizzas/mussarela.png");
+    fileName = "Pizza mussarela.png";
+	await upload.move(Helpers.tmpPath("uploads"), {name: fileName});
+
+	upload =  Drive.get("../../resources/imagens/pizzas/napolitana.png");
+    fileName = "Pizza napolitana.png";
+    await upload.move(Helpers.tmpPath("uploads"), {name: fileName});
+    
+    upload =  Drive.get("../../resources/imagens/pizzas/portuguesa.png");
+    fileName = "Pizza portuguesa.png";
+    await upload.move(Helpers.tmpPath("uploads"), {name: fileName});
+	
   }
 }
 

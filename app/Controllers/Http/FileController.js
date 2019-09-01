@@ -167,7 +167,7 @@ class FileController {
       await file.delete();
 
       return response
-        .status(201)
+        .status(200)
         .send({ message: "Imagem excluída com sucesso " });
     } catch (err) {
       return response.status(404).send({ message: "Erro ao excluir a imagem" });

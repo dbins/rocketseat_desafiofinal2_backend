@@ -1,5 +1,6 @@
 "use strict";
 const Tipo = use("App/Models/Tipo");
+const moment = use("moment");
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -18,7 +19,21 @@ class TipoController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index({ params, request, response, view }) {
+  async index({ params, request, response, view, auth }) {
+    if (auth.user.type == "USUARIO") {
+      const now = moment().format("YYYY-MM-DD HH:mm:ss");
+      const log_produto = {
+        user_id: auth.user.id,
+        produto_id: params.produtos_id,
+        produto_tipo_id: 0,
+        produto_tamanho_id: 0,
+        created_at: now,
+        updated_at: now
+      };
+      const gravar_log = await use("Database")
+        .table("log_produtos")
+        .insert(log_produto);
+    }
     const resultado = await Tipo.query()
       .where("produto_id", params.produtos_id)
       .with("file")
@@ -51,7 +66,7 @@ class TipoController {
 
     const resultado = await Tipo.create({
       ...data,
-      produto_id: params.produtos_id
+      produto_id: parseInt(params.produtos_id)
     });
     return resultado;
   }
@@ -66,8 +81,16 @@ class TipoController {
    * @param {View} ctx.view
    */
   async show({ params, request, response, view }) {
-    const resultado = await Tipo.findOrFail(params.id);
-    return resultado;
+	console.log('ID do tipo solicitado');  
+	console.log(params.id);
+    const resultado = await Tipo.find(params.id);
+    if (resultado) {
+      return response.status(200).send(resultado);
+    } else {
+      return response
+        .status(404)
+        .send({ message: "O ID do tipo não foi localizado" });
+    }
   }
 
   /**
@@ -93,7 +116,7 @@ class TipoController {
     const data = request.only(["titulo", "file_id"]);
     const resultado = await Tipo.find(params.id);
     if (resultado) {
-      data.produto_id = params.produtos_id;
+      data.produto_id = parseInt(params.produtos_id);
       resultado.merge(data);
       await resultado.save();
       return response.status(200).send(resultado);

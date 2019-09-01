@@ -24,14 +24,15 @@ class PedidoController {
    * @param {View} ctx.view
    */
   async index({ request, response, view }) {
-	const { status } = request.get(); // parametro para filtro pelo titulo do meetup
-    const whereLikeStatus = status && status !== "" ? `pedidos.status = '${status}' ` : "";
-	
+    const { status } = request.get(); // parametro para filtro pelo titulo do meetup
+    const whereLikeStatus =
+      status && status !== "" ? `pedidos.status = '${status}' ` : "";
+
     const pedidos = await Pedido.query()
       .with("user")
       .with("produtos")
-	  .whereRaw(whereLikeStatus)
-	  .orderBy('id', 'desc')
+      .whereRaw(whereLikeStatus)
+      .orderBy("id", "desc")
       .fetch();
     return pedidos;
   }
@@ -67,7 +68,8 @@ class PedidoController {
       cep: data_request.cep,
       valor: data_request.valor,
       user_id: auth.user.id,
-	  status: 'PENDENTE'
+      status: "PENDENTE",
+      forma_pagamento: data_request.forma_pagamento
     };
     const produtos = request.input("produtos");
 
@@ -118,7 +120,21 @@ class PedidoController {
       .with("user")
       .with("produtos")
       .fetch();
-    return pedidos;
+
+    let sucesso = false;
+    let resultado = {};
+    for (let i in pedidos.rows) {
+      resultado = pedidos.rows[i];
+      sucesso = true;
+    }
+
+    if (sucesso) {
+      return response.status(200).send(resultado);
+    } else {
+      return response
+        .status(404)
+        .send({ message: "ID do pedido não localizado" });
+    }
   }
 
   /**
@@ -150,7 +166,7 @@ class PedidoController {
       estado: data_request.uf,
       cep: data_request.cep,
       valor: data_request.valor,
-	  status: data_request.status,
+      status: data_request.status
     };
     const resultado = await Pedido.find(params.id);
     if (resultado) {
@@ -165,7 +181,7 @@ class PedidoController {
     } else {
       return response
         .status(404)
-        .send({ message: "ID do tamanho não localizado" });
+        .send({ message: "ID do pedido não localizado" });
     }
   }
 
@@ -200,12 +216,60 @@ class PedidoController {
   }
 
   async pedidosUsuario({ request, auth }) {
-	const resultados = await Pedido.query()
+    const resultados = await Pedido.query()
       .where("user_id", auth.user.id)
       .with("user")
       .with("produtos")
-	  .orderBy('id', 'desc')
+      .orderBy("id", "desc")
       .fetch();
+    return resultados;
+  }
+
+  async dashboard({ params, request, response }) {
+    let resultados = {
+      pedidos: 0,
+      usuarios: 0,
+      recebido: 0,
+      pendente: 0,
+      ticket_medio: 0,
+      categorias: 0,
+      tipos: 0,
+      tamanhos: 0,
+      mais_vendidos: []
+    };
+
+    resultados.usuarios = await Database.from("users").getCount();
+
+    resultados.pedidos = await Database.from("pedidos").getCount();
+
+    resultados.categorias = await Database.from("produtos").getCount();
+
+    resultados.tamanhos = await Database.from("tamanhos").getCount();
+
+    resultados.tipos = await Database.from("tipos").getCount();
+
+    resultados.tipos = await Database.from("tipos").getCount();
+
+    resultados.recebido = await Database.from("pedidos")
+      .where("status", "PAGO")
+      .getSum("valor");
+
+    resultados.ticket_medio = resultados.recebido / resultados.usuarios;
+
+    resultados.mais_vendidos = await Database.select(
+      "produtos.nome as categoria",
+      "tipos.titulo as tipo",
+      "tamanhos.titulo as tamanho"
+    )
+      .from("pedidos")
+      .innerJoin("pedido_itens", "pedidos.id", "pedido_itens.pedido_id")
+      .innerJoin("produtos", "produtos.id", "pedido_itens.produto_id")
+      .innerJoin("tipos", "tipos.id", "pedido_itens.produto_tipo_id")
+      .innerJoin("tamanhos", "tamanhos.id", "pedido_itens.produto_tamanho_id")
+      .sum("pedido_itens.valor as total")
+      .where("status", "PAGO")
+      .groupByRaw("produtos.nome, tipos.titulo, tamanhos.titulo");
+
     return resultados;
   }
 }

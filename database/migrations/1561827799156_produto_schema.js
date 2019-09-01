@@ -10,7 +10,6 @@ class ProdutoSchema extends Schema {
       table
         .string("nome", 50)
         .notNullable()
-        .unique();
       table.text("descricao", 80).notNullable();
       table.integer("tempo_estimado").notNullable();
       table

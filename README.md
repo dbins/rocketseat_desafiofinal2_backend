@@ -68,8 +68,9 @@ Um resumo das rotas pode ser visto abaixo:
 | Rota                                 | Método | Descrição                                      |
 | ------------------------------------ | ------ | ---------------------------------------------- |
 | /register                            | POST   | Criar usuário                                  |
-| /login                               | POST   | Login do usuário - gerar Token                 |
-| /files                               | POST   | Salvar Imagem do Meetup                        |
+| /sessions                            | POST   | Login do usuário - gerar Token                 |
+| /sessions_social                     | POST   | Login do usuário por rede social- gerar Token  |
+| /files                               | POST   | Salvar Imagem do produto                       |
 | /files/:id                           | GET    | Recuperar Imagem                               |
 | /files/:id                           | PUT    | Atualizar Imagem                               |
 | /files/:id                           | DELETE | Excluir Imagem                                 |
@@ -88,6 +89,7 @@ Um resumo das rotas pode ser visto abaixo:
 | /pedidos/:id                         | GET    | Listar o pedido informado                      |
 | /pedidos/:id                         | PUT    | Atualizar pedido (endereço e observação)       |
 | /pedidos/app/user                    | GET    | Listar Pedidos do usuário logado no aplicativo |
+| /pedidos/dashboard                   | GET    | Indicadores do sistema                         |
 
 Obs: Existem imagens de exemplo dos produtos na pasta resources/imagens. Na raiz do projeto existe um arquivo chamado Insomnia_2019-07-07.json com as rotas do projeto para serem testadas através do programa Insomnia.
 
@@ -105,6 +107,9 @@ adonis make:model Tamanho -m -c
 adonis make:model Pedido -m -c
 adonis make:controller Session
 adonis make:migration pedido_itens
+
+adonis make:migration login
+adonis make:migration log_produto
 
 adonis make:seed User
 adonis make:seed File
@@ -147,3 +152,16 @@ adonis serve --dev
 //Para conferir as rotas disponiveis
 adonis route:list 
 ```
+
+## Instalação ESLINT - Prettier
+
+npm install -D eslint
+npx eslint --init
+
+npm install --save-dev prettier
+npm install --save-dev eslint-plugin-prettier
+npm install --save-dev eslint-config-prettier
+
+## Testes unitários
+
+Existem testes unitários feitos com a ferramenta Dredd

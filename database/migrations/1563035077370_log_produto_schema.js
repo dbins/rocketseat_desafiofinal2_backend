@@ -14,6 +14,7 @@ class LogProdutoSchema extends Schema {
         .inTable("users")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
+	  table.string("pesquisa", 100).nullable();
       table.integer("produto_id");
       table.integer("produto_tipo_id");
       table.integer("produto_tamanho_id");

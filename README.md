@@ -90,6 +90,7 @@ Um resumo das rotas pode ser visto abaixo:
 | /pedidos/:id                         | PUT    | Atualizar pedido (endereço e observação)       |
 | /pedidos/app/user                    | GET    | Listar Pedidos do usuário logado no aplicativo |
 | /pedidos/dashboard                   | GET    | Indicadores do sistema                         |
+| /busca							   | POST   | Localizar produtos por tipo          |
 
 Obs: Existem imagens de exemplo dos produtos na pasta resources/imagens. Na raiz do projeto existe um arquivo chamado Insomnia_2019-07-07.json com as rotas do projeto para serem testadas através do programa Insomnia.
 

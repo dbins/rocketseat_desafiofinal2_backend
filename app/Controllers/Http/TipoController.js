@@ -41,6 +41,37 @@ class TipoController {
 
     return resultado;
   }
+  
+  async search({ params, request, response, view, auth }) {
+    const busca = request.only(["produto"]);
+	const produto = busca.produto;
+	const whereLikeTitle = " (tipos.titulo LIKE '%" + produto + "%' OR tipos.descricao LIKE '%" + produto + "%')";
+    if (auth.user.type == "USUARIO") {
+	  const now = moment().format("YYYY-MM-DD HH:mm:ss");
+      const log_produto = {
+        user_id: auth.user.id,
+		pesquisa: produto,
+        produto_id: 0,
+        produto_tipo_id: 0,
+        produto_tamanho_id: 0,
+        created_at: now,
+        updated_at: now
+      };
+      const gravar_log = await use("Database")
+        .table("log_produtos")
+        .insert(log_produto);
+    }
+	
+	 const resultado = await Tipo.query()
+      .select("tipos.*")
+      .with("file")
+      .whereRaw(whereLikeTitle)
+      .orderBy("titulo", "ASC")
+      .fetch();
+
+    return resultado;
+  }
+
 
   /**
    * Render a form to be used for creating a new tipo.

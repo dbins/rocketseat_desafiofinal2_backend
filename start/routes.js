@@ -38,6 +38,7 @@ Route.group(() => {
   Route.put("pedidos/:id", "PedidoController.update");
   Route.get("pedidos/app/user", "PedidoController.pedidosUsuario");
   Route.post("pedidos", "PedidoController.store");
+  Route.post("busca", "TipoController.search");
   Route.get("pedidos/admin/dashboard", "PedidoController.dashboard");
 
   Route.resource("produtos.tipos", "TipoController").validator("Tipo");

@@ -1,0 +1,14 @@
+INSERT INTO produtos (nome, descricao, tempo_estimado, file_id, created_at, updated_at) values ('Pizzas', 'Mais de 50 sabores de pizzas em até 4 tamanhos diferentes de fome', 30, (select id from files where name = 'pizzas.png'), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO produtos (nome, descricao, tempo_estimado, file_id, created_at, updated_at) values ('Massas', '10 tipos de massas com diferentes molhos para te satisfazer', 15, (select id from files where name = 'macarronada.jpg'), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO produtos (nome, descricao, tempo_estimado, file_id, created_at, updated_at) values ('Calzones', 'Calzones super recheados com mais de 50 sabores diferentes', 25, (select id from files where name = 'calzones.jpg'), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO produtos (nome, descricao, tempo_estimado, file_id, created_at, updated_at) values ('Bebidas não-alcóolicas', 'Refrigerantes, sucos, chá gelado, energéticos e água', 15, (select id from files where name = 'refrigerantes.jpg'), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO produtos (nome, descricao, tempo_estimado, file_id, created_at, updated_at) values ('Bebidas Alcóolicas', 'Cervejas artesanais, vinhos e destilados', 25, (select id from files where name = 'cervejas.jpg'), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO produtos (nome, descricao, tempo_estimado, file_id, created_at, updated_at) values ('Sanduíches', 'A forma mais rápida de matar sua fome', 15, (select id from files where name = 'macarronada.jpg'), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO produtos (nome, descricao, tempo_estimado, file_id, created_at, updated_at) values ('Sobremesas', 'As mais deliciosas sobremesas para acompanhar sua refeição', 20, (select id from files where name = 'sobremesa.jpg'), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+
+
+
+
+
+

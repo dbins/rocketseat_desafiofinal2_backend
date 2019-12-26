@@ -8,6 +8,7 @@ class TipoSchema extends Schema {
     this.create("tipos", table => {
       table.increments();
       table.string("titulo").notNullable();
+	  table.string("descricao").notNullable();
       table
         .integer("produto_id")
         .unsigned()
